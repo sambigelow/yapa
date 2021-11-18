@@ -23,4 +23,7 @@ _Start in the directory you wish for the project to live_
 3. From the api (`cd ./api`)
    1. install dependencies (`npm i`)
    2. start the server (`npm start`)
-4. It's running! visit `http://localhost:8080/api/` for "Hello, World!"
+4. From the frontend (`cd ../frontend`)
+   1. install dependencies (`npm i`)
+   2. start the dev server (`npm run dev`)
+5. It's running! visit `http://localhost:8080` for "Hello, World!"
