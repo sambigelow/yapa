@@ -3,11 +3,7 @@ const fastify = require('fastify')({ logger: true })
 
 // Declare a route
 fastify.get('/api/', async (request, reply) => {
-  return { hello: 'world' }
-})
-
-fastify.get('/api/test/', async (req, reply) => {
-  return { test: 'foo' }
+  return { data: 'Hello, World!' }
 })
 
 // Run the server!
