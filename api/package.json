@@ -1,18 +1,25 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
-  "main": "src/app.js",
+  "description": "A web server for a podcast player",
+  "main": "app.js",
+  "type": "module",
   "scripts": {
     "start": "nodemon ./src/app.js"
+  },
+  "prisma": {
+    "schema": "./src/prisma/schema.prisma"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^3.23.1"
+    "@prisma/client": "^3.5.0",
+    "fastify": "^3.23.1",
+    "fastify-plugin": "^3.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "prisma": "^3.5.0"
   }
 }
