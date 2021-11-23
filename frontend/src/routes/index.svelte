@@ -1,29 +1,56 @@
-<script>
-let result;
-let status = 'fetching'
-let error = null;
-fetch('http://localhost:8080/api/').then(res => res.json()).then(res => {
-  result = res.data
-  status = 'success'
-}).catch(e => {
-  status = 'error'
-  error = e.message
-})
+<script context="module">
+	const query = `
+    {
+      subscriptions {
+        feedUrl
+        playedEpisodes {
+          episodeGuid
+        }
+      }
+    }
+  `;
+
+	export async function load({ fetch }) {
+		const response = await fetch('http://localhost:8080/graphql', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ query })
+		});
+
+		console.log({ response });
+
+		if (response.ok) {
+			const responseObj = await response.json();
+			const subscriptions = responseObj.data.subscriptions;
+
+			return {
+				props: {
+					subscriptions
+				}
+			};
+		}
+
+		return {
+			props: {
+				status: response.status,
+				error: 'Could not load data'
+			}
+		};
+	}
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+	export let subscriptions;
+</script>
 
-<p> From Server: 
-  <span>
-    {#if status === 'fetching'}
-      loading...
-    {:else if status === 'success'}
-      {result}
-    {:else if status === 'error'}
-      (Request failed...) error: {error}
-    {:else}
-      Uh Oh! Unknown state...
-    {/if}
-  </span>
-</p>
+{#if subscriptions}
+	<ul>
+		{#each subscriptions as subscription}
+			<li>{subscription.feedUrl}</li>
+		{/each}
+	</ul>
+{:else}
+	<p>No subscriptions... :(</p>
+{/if}
