@@ -8,7 +8,7 @@
         }
       }
     }
-  `;
+  `
 
 	export async function load({ fetch }) {
 		const response = await fetch('http://localhost:8080/graphql', {
@@ -17,19 +17,19 @@
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({ query })
-		});
+		})
 
-		console.log({ response });
+		console.log({ response })
 
 		if (response.ok) {
-			const responseObj = await response.json();
-			const subscriptions = responseObj.data.subscriptions;
+			const responseObj = await response.json()
+			const subscriptions = responseObj.data.subscriptions
 
 			return {
 				props: {
 					subscriptions
 				}
-			};
+			}
 		}
 
 		return {
@@ -37,12 +37,12 @@
 				status: response.status,
 				error: 'Could not load data'
 			}
-		};
+		}
 	}
 </script>
 
 <script>
-	export let subscriptions;
+	export let subscriptions
 </script>
 
 {#if subscriptions}
