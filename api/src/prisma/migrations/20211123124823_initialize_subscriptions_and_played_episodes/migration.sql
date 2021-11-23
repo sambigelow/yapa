@@ -13,8 +13,8 @@ CREATE TABLE "PlayedEpisode" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
-    "episodeId" TEXT,
-    "subscriptionId" INTEGER,
+    "episodeGuid" TEXT NOT NULL,
+    "subscriptionId" INTEGER NOT NULL,
 
     CONSTRAINT "PlayedEpisode_pkey" PRIMARY KEY ("id")
 );
@@ -23,4 +23,4 @@ CREATE TABLE "PlayedEpisode" (
 CREATE UNIQUE INDEX "Subscription_feedUrl_key" ON "Subscription"("feedUrl");
 
 -- AddForeignKey
-ALTER TABLE "PlayedEpisode" ADD CONSTRAINT "PlayedEpisode_subscriptionId_fkey" FOREIGN KEY ("subscriptionId") REFERENCES "Subscription"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "PlayedEpisode" ADD CONSTRAINT "PlayedEpisode_subscriptionId_fkey" FOREIGN KEY ("subscriptionId") REFERENCES "Subscription"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

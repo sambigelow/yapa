@@ -14,15 +14,18 @@ model Subscription {
   id             Int             @id @default(autoincrement())
   createdAt      DateTime        @default(now())
   updatedAt      DateTime?
-  feedUrl        String          @unique
+  feedUrl        String
   playedEpisodes PlayedEpisode[]
 }
 
 model PlayedEpisode {
-  id             Int           @id @default(autoincrement())
-  createdAt      DateTime      @default(now())
+  id             Int          @id @default(autoincrement())
+  createdAt      DateTime     @default(now())
   updatedAt      DateTime?
-  episodeId      String?
-  Subscription   Subscription? @relation(fields: [subscriptionId], references: [id])
-  subscriptionId Int?
+  // episodeGuid is different than the id. There will be several PlayedEpisodes
+  // for a single episodeGuid since multiple users could subscribe and have the
+  // played episodes
+  episodeGuid    String
+  Subscription   Subscription @relation(fields: [subscriptionId], references: [id])
+  subscriptionId Int
 }
