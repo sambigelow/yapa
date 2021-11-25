@@ -29,3 +29,19 @@ model PlayedEpisode {
   Subscription   Subscription @relation(fields: [subscriptionId], references: [id])
   subscriptionId Int
 }
+
+model User {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
+  email       UserEmail @relation(fields: [userEmailId], references: [id])
+  userEmailId Int       @unique
+  password    String
+}
+
+model UserEmail {
+  id           Int     @id @default(autoincrement())
+  emailAddress String  @unique
+  verified     Boolean @default(false)
+  user         User?
+}
