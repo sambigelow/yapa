@@ -1,16 +1,26 @@
 import Fastify from 'fastify'
+import mercurius from 'mercurius'
+import { getGraphQLSchema } from './getGraphQLSchema'
 
 const address = 3000
 const fastify = Fastify()
 
-fastify.get('/ping', async (_request, _reply) => {
-	return 'pong\n'
-})
+async function start() {
+	const schema = await getGraphQLSchema()
 
-fastify.listen(address, (err: any) => {
-	if (err) {
-		console.error(err)
+	fastify.register(mercurius, {
+		schema,
+		graphiql: true
+	})
+
+	try {
+		await fastify.listen(address)
+		console.log(`Server listening at ${address}`)
+	} catch (e: unknown) {
+		// TODO: properly type the error
+		console.error(e)
 		process.exit(1)
 	}
-	console.log(`Server listening at ${address}`)
-})
+}
+
+start()

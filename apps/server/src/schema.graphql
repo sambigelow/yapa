@@ -1,0 +1,18 @@
+type Query {
+	getSubscriptions(userId: ID): [Subscription]!
+}
+
+type Subscription {
+	id: ID!
+	createdAt: String!
+	updatedAt: String
+	feedUrl: String!
+	playedEpisodes: [PlayedEpisode]!
+}
+
+type PlayedEpisode {
+	id: ID!
+	createdAt: String!
+	updatedAt: String
+	episodeGuid: String!
+}
