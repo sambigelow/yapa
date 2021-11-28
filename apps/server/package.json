@@ -6,7 +6,8 @@
 	"scripts": {
 		"dev": "ts-node-dev ./src/index.ts",
 		"build": "tsc -p tsconfig.json",
-		"start": "echo 'TODO'"
+		"start": "echo 'TODO'",
+		"preinstall": "npx only-allow pnpm"
 	},
 	"keywords": [],
 	"author": "",
