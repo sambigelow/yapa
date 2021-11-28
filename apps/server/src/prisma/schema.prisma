@@ -1,0 +1,51 @@
+// Prisma schema docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Subscription {
+  id             String          @id @default(uuid())
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime?
+  feedUrl        String
+  playedEpisodes PlayedEpisode[]
+  UserProfile    UserProfile     @relation(fields: [userProfileId], references: [id])
+  userProfileId  String
+}
+
+model PlayedEpisode {
+  id             String       @id @default(uuid())
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime?
+  // episodeGuid is different than the id. There will be several PlayedEpisodes
+  // for a single episodeGuid since multiple users could subscribe and have the
+  // played episodes
+  episodeGuid    String
+  Subscription   Subscription @relation(fields: [subscriptionId], references: [id])
+  subscriptionId String
+}
+
+model User {
+  id                     String       @id @default(uuid())
+  createdAt              DateTime     @default(now())
+  updatedAt              DateTime?
+  emailAddress           String
+  isEmailAddressVerified Boolean      @default(false)
+  password               String
+  profile                UserProfile?
+}
+
+model UserProfile {
+  id            String         @id @default(uuid())
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime?
+  user          User           @relation(fields: [userId], references: [id])
+  userId        String         @unique
+  subscriptions Subscription[]
+}

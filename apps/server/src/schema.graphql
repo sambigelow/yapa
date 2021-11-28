@@ -1,5 +1,5 @@
 type Query {
-	getSubscriptions(userId: ID): [Subscription]!
+	getSubscriptions(userProfileId: ID!): [Subscription!]!
 }
 
 type Subscription {
@@ -7,7 +7,7 @@ type Subscription {
 	createdAt: String!
 	updatedAt: String
 	feedUrl: String!
-	playedEpisodes: [PlayedEpisode]!
+	playedEpisodes: [PlayedEpisode!]!
 }
 
 type PlayedEpisode {
@@ -15,4 +15,24 @@ type PlayedEpisode {
 	createdAt: String!
 	updatedAt: String
 	episodeGuid: String!
+}
+
+type Mutation {
+	registerUser(emailAddress: String!, password: String!): User
+}
+
+type User {
+	id: ID!
+	createdAt: String!
+	updatedAt: String
+	emailAddress: String!
+	isEmailAddressVerified: Boolean!
+	profile: UserProfile
+}
+
+type UserProfile {
+	id: ID!
+	createdAt: String!
+	updatedAt: String
+	subscriptions: [Subscription]!
 }

@@ -1,18 +1,22 @@
-import type { Resolvers, QueryGetSubscriptionsArgs } from './resolvers-types'
+import type { Resolvers } from './generatedTypes'
+import { registerUser } from './registration/register'
 
-const subscriptions = [
-	{
-		id: 1,
-		createdAt: new Date().toString(),
-		updatedAt: null,
-		feedUrl: 'https://syntax.fm',
-		playedEpisodes: []!
-	}
-]
 export const resolvers: Resolvers = {
 	Query: {
-		getSubscriptions: (_root, _args, _ctx) => {
-			return subscriptions
+		getSubscriptions: async (_root, { userProfileId }, ctx) => {
+			return await ctx.prisma.subscription.findMany({
+				where: {
+					userProfileId
+				},
+				include: {
+					playedEpisodes: true
+				}
+			})
+		}
+	},
+	Mutation: {
+		registerUser: async (_root, { emailAddress, password }, ctx) => {
+			return await registerUser(ctx.prisma, emailAddress, password)
 		}
 	}
 }

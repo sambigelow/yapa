@@ -1,6 +1,6 @@
 import { loadSchema } from '@graphql-tools/load'
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
-import { makeExecutableSchema } from 'graphql-tools'
+import { makeExecutableSchema } from '@graphql-tools/schema'
 import { GraphQLSchema } from 'graphql'
 import { resolvers } from './resolvers'
 

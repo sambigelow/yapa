@@ -14,6 +14,17 @@ export type Scalars = {
   Float: number;
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  registerUser?: Maybe<User>;
+};
+
+
+export type MutationRegisterUserArgs = {
+  emailAddress: Scalars['String'];
+  password: Scalars['String'];
+};
+
 export type PlayedEpisode = {
   __typename?: 'PlayedEpisode';
   createdAt: Scalars['String'];
@@ -24,12 +35,12 @@ export type PlayedEpisode = {
 
 export type Query = {
   __typename?: 'Query';
-  getSubscriptions: Array<Maybe<Subscription>>;
+  getSubscriptions: Array<Subscription>;
 };
 
 
 export type QueryGetSubscriptionsArgs = {
-  userId?: InputMaybe<Scalars['ID']>;
+  userProfileId: Scalars['ID'];
 };
 
 export type Subscription = {
@@ -37,7 +48,25 @@ export type Subscription = {
   createdAt: Scalars['String'];
   feedUrl: Scalars['String'];
   id: Scalars['ID'];
-  playedEpisodes: Array<Maybe<PlayedEpisode>>;
+  playedEpisodes: Array<PlayedEpisode>;
+  updatedAt?: Maybe<Scalars['String']>;
+};
+
+export type User = {
+  __typename?: 'User';
+  createdAt: Scalars['String'];
+  emailAddress: Scalars['String'];
+  id: Scalars['ID'];
+  isEmailAddressVerified: Scalars['Boolean'];
+  profile?: Maybe<UserProfile>;
+  updatedAt?: Maybe<Scalars['String']>;
+};
+
+export type UserProfile = {
+  __typename?: 'UserProfile';
+  createdAt: Scalars['String'];
+  id: Scalars['ID'];
+  subscriptions: Array<Maybe<Subscription>>;
   updatedAt?: Maybe<Scalars['String']>;
 };
 
@@ -112,20 +141,30 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Mutation: ResolverTypeWrapper<{}>;
   PlayedEpisode: ResolverTypeWrapper<PlayedEpisode>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Subscription: ResolverTypeWrapper<{}>;
+  User: ResolverTypeWrapper<User>;
+  UserProfile: ResolverTypeWrapper<UserProfile>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   ID: Scalars['ID'];
+  Mutation: {};
   PlayedEpisode: PlayedEpisode;
   Query: {};
   String: Scalars['String'];
   Subscription: {};
+  User: User;
+  UserProfile: UserProfile;
+};
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  registerUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRegisterUserArgs, 'emailAddress' | 'password'>>;
 };
 
 export type PlayedEpisodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['PlayedEpisode'] = ResolversParentTypes['PlayedEpisode']> = {
@@ -137,20 +176,41 @@ export type PlayedEpisodeResolvers<ContextType = any, ParentType extends Resolve
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  getSubscriptions?: Resolver<Array<Maybe<ResolversTypes['Subscription']>>, ParentType, ContextType, RequireFields<QueryGetSubscriptionsArgs, never>>;
+  getSubscriptions?: Resolver<Array<ResolversTypes['Subscription']>, ParentType, ContextType, RequireFields<QueryGetSubscriptionsArgs, 'userProfileId'>>;
 };
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
   createdAt?: SubscriptionResolver<ResolversTypes['String'], "createdAt", ParentType, ContextType>;
   feedUrl?: SubscriptionResolver<ResolversTypes['String'], "feedUrl", ParentType, ContextType>;
   id?: SubscriptionResolver<ResolversTypes['ID'], "id", ParentType, ContextType>;
-  playedEpisodes?: SubscriptionResolver<Array<Maybe<ResolversTypes['PlayedEpisode']>>, "playedEpisodes", ParentType, ContextType>;
+  playedEpisodes?: SubscriptionResolver<Array<ResolversTypes['PlayedEpisode']>, "playedEpisodes", ParentType, ContextType>;
   updatedAt?: SubscriptionResolver<Maybe<ResolversTypes['String']>, "updatedAt", ParentType, ContextType>;
 };
 
+export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  emailAddress?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isEmailAddressVerified?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  profile?: Resolver<Maybe<ResolversTypes['UserProfile']>, ParentType, ContextType>;
+  updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type UserProfileResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserProfile'] = ResolversParentTypes['UserProfile']> = {
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  subscriptions?: Resolver<Array<Maybe<ResolversTypes['Subscription']>>, ParentType, ContextType>;
+  updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
+  Mutation?: MutationResolvers<ContextType>;
   PlayedEpisode?: PlayedEpisodeResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Subscription?: SubscriptionResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
+  UserProfile?: UserProfileResolvers<ContextType>;
 };
 
