@@ -1,3 +1,5 @@
+import type { Resolvers, QueryGetSubscriptionsArgs } from './resolvers-types'
+
 const subscriptions = [
 	{
 		id: 1,
@@ -7,9 +9,9 @@ const subscriptions = [
 		playedEpisodes: []!
 	}
 ]
-export const resolvers = {
+export const resolvers: Resolvers = {
 	Query: {
-		getSubscriptions: (_root: any, _args: any, _ctx: any) => {
+		getSubscriptions: (_root, _args, _ctx) => {
 			return subscriptions
 		}
 	}
