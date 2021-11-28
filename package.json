@@ -18,6 +18,11 @@
   },
   "homepage": "https://github.com/sambigelow/yapa#readme",
   "devDependencies": {
-    "husky": "^7.0.4"
+    "husky": "^7.0.4",
+    "prettier": "^2.5.0"
+  },
+  "engines": {
+    "node": ">=17",
+    "pnpm": ">=4"
   }
 }

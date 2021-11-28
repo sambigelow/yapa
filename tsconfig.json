@@ -25,7 +25,7 @@
     // TODO: These need to be project specific
     // "module": "nodenext",
     // "moduleResolution": "nodenext",
-    "resolveJsonModule": true,
+    // "resolveJsonModule": true,
     "allowJs": false,
     "forceConsistentCasingInFileNames": true,
     "target": "ESNext",
@@ -34,7 +34,6 @@
     "emitDecoratorMetadata": true
   },
   "references": [
-    { "path": "./apps/server/" },
-    { "path": "./apps/client/" }
+    { "path": "./apps/server/" }
   ]
 }

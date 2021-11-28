@@ -1,0 +1,17 @@
+{
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": true,
+  "semi": false,
+  "singleQuote": true,
+  "quoteProps":"as-needed",
+  "trailingComma": "none",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "always",
+  "parser": "typescript",
+  "proseWrap": "never",
+  "htmlWhitespaceSensitivity": "css"
+// End of Line
+// Embedded Language Formatting
+}

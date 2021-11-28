@@ -1,2 +1,8 @@
 tmp/*
 node_modules
+# Ignoring package-lock because this project should use pnpm (and
+# pnpm-lock.yaml) 
+package-lock.json
+dist
+.pnpm-debug.log
+**/tsconfig.tsbuildinfo
