@@ -9,9 +9,6 @@
   "bracketSpacing": true,
   "bracketSameLine": false,
   "arrowParens": "always",
-  "parser": "typescript",
   "proseWrap": "never",
   "htmlWhitespaceSensitivity": "css"
-// End of Line
-// Embedded Language Formatting
 }

@@ -1,28 +1,28 @@
 {
-  "name": "yapa",
-  "version": "1.0.0",
-  "description": "## Running Locally",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sambigelow/yapa.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sambigelow/yapa/issues"
-  },
-  "homepage": "https://github.com/sambigelow/yapa#readme",
-  "devDependencies": {
-    "husky": "^7.0.4",
-    "prettier": "^2.5.0"
-  },
-  "engines": {
-    "node": ">=17",
-    "pnpm": ">=4"
-  }
+	"name": "yapa",
+	"version": "1.0.0",
+	"description": "## Running Locally",
+	"main": "index.js",
+	"scripts": {
+		"prettify": "prettier --write apps/**"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/sambigelow/yapa.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/sambigelow/yapa/issues"
+	},
+	"homepage": "https://github.com/sambigelow/yapa#readme",
+	"devDependencies": {
+		"husky": "^7.0.4",
+		"prettier": "^2.5.0"
+	},
+	"engines": {
+		"node": ">=17",
+		"pnpm": ">=4"
+	}
 }
