@@ -1,5 +1,5 @@
 import * as prismaClient from '@prisma/client'
-import { registerUser } from '../src/registration/register'
+import { registerUser } from '../src/accounts/register'
 
 const prisma = new prismaClient.PrismaClient()
 

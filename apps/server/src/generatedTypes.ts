@@ -16,7 +16,14 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  authenticateUser: Scalars['Boolean'];
   registerUser?: Maybe<User>;
+};
+
+
+export type MutationAuthenticateUserArgs = {
+  emailAddress: Scalars['String'];
+  password: Scalars['String'];
 };
 
 
@@ -164,6 +171,7 @@ export type ResolversParentTypes = {
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  authenticateUser?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationAuthenticateUserArgs, 'emailAddress' | 'password'>>;
   registerUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRegisterUserArgs, 'emailAddress' | 'password'>>;
 };
 

@@ -1,0 +1,14 @@
+html {
+	box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+input {
+	padding: 0.25rem 0.5rem;
+	width: 100%;
+}

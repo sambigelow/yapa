@@ -2,6 +2,11 @@ type Query {
 	getSubscriptions(userProfileId: ID!): [Subscription!]!
 }
 
+type Mutation {
+	registerUser(emailAddress: String!, password: String!): User
+	authenticateUser(emailAddress: String!, password: String!): Boolean!
+}
+
 type Subscription {
 	id: ID!
 	createdAt: String!
@@ -15,10 +20,6 @@ type PlayedEpisode {
 	createdAt: String!
 	updatedAt: String
 	episodeGuid: String!
-}
-
-type Mutation {
-	registerUser(emailAddress: String!, password: String!): User
 }
 
 type User {

@@ -1,5 +1,5 @@
-import adapter from '@sveltejs/adapter-auto';
-import preprocess from 'svelte-preprocess';
+import adapter from '@sveltejs/adapter-auto'
+import preprocess from 'svelte-preprocess'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -11,8 +11,14 @@ const config = {
 		adapter: adapter(),
 
 		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte'
-	}
-};
+		target: '#svelte',
 
-export default config;
+		vite: {
+			optimizeDeps: {
+				exclude: ['@urql/svelte']
+			}
+		}
+	}
+}
+
+export default config

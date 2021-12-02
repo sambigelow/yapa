@@ -33,7 +33,7 @@ async function start() {
 	})
 
 	try {
-		await fastify.listen(address)
+		await fastify.listen(address, '0.0.0.0')
 		console.log(`Server listening at ${address}`)
 	} catch (e: unknown) {
 		// TODO: properly type the error

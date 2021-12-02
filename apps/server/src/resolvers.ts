@@ -1,5 +1,6 @@
 import type { Resolvers } from './generatedTypes'
-import { registerUser } from './registration/register'
+import { registerUser } from './accounts/register'
+import { authenticateUser } from './accounts/authenticate'
 
 export const resolvers: Resolvers = {
 	Query: {
@@ -15,8 +16,11 @@ export const resolvers: Resolvers = {
 		}
 	},
 	Mutation: {
-		registerUser: async (_root, { emailAddress, password }, ctx) => {
-			return await registerUser(ctx.prisma, emailAddress, password)
+		registerUser: async (_root, { emailAddress, password }, { prisma }) => {
+			return await registerUser(prisma, emailAddress, password)
+		},
+		authenticateUser: async (_root, { emailAddress, password }, { prisma }) => {
+			return await authenticateUser(prisma, emailAddress, password)
 		}
 	}
 }

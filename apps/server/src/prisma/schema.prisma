@@ -17,6 +17,8 @@ model Subscription {
   playedEpisodes PlayedEpisode[]
   UserProfile    UserProfile     @relation(fields: [userProfileId], references: [id])
   userProfileId  String
+
+  @@unique([feedUrl, userProfileId])
 }
 
 model PlayedEpisode {
@@ -29,13 +31,15 @@ model PlayedEpisode {
   episodeGuid    String
   Subscription   Subscription @relation(fields: [subscriptionId], references: [id])
   subscriptionId String
+
+  @@unique([episodeGuid, subscriptionId])
 }
 
 model User {
   id                     String       @id @default(uuid())
   createdAt              DateTime     @default(now())
   updatedAt              DateTime?
-  emailAddress           String
+  emailAddress           String       @unique
   isEmailAddressVerified Boolean      @default(false)
   password               String
   profile                UserProfile?
