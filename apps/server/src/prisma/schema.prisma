@@ -43,6 +43,7 @@ model User {
   isEmailAddressVerified Boolean      @default(false)
   password               String
   profile                UserProfile?
+  Session                Session[]
 }
 
 model UserProfile {
@@ -52,4 +53,15 @@ model UserProfile {
   user          User           @relation(fields: [userId], references: [id])
   userId        String         @unique
   subscriptions Subscription[]
+}
+
+model Session {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  token     String
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
+  valid     Boolean
+  ip        String
 }

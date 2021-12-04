@@ -42,12 +42,7 @@ export type PlayedEpisode = {
 
 export type Query = {
   __typename?: 'Query';
-  getSubscriptions: Array<Subscription>;
-};
-
-
-export type QueryGetSubscriptionsArgs = {
-  userProfileId: Scalars['ID'];
+  users: Array<User>;
 };
 
 export type Subscription = {
@@ -65,7 +60,7 @@ export type User = {
   emailAddress: Scalars['String'];
   id: Scalars['ID'];
   isEmailAddressVerified: Scalars['Boolean'];
-  profile?: Maybe<UserProfile>;
+  profile: UserProfile;
   updatedAt?: Maybe<Scalars['String']>;
 };
 
@@ -73,7 +68,7 @@ export type UserProfile = {
   __typename?: 'UserProfile';
   createdAt: Scalars['String'];
   id: Scalars['ID'];
-  subscriptions: Array<Maybe<Subscription>>;
+  subscriptions: Array<Subscription>;
   updatedAt?: Maybe<Scalars['String']>;
 };
 
@@ -184,7 +179,7 @@ export type PlayedEpisodeResolvers<ContextType = any, ParentType extends Resolve
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  getSubscriptions?: Resolver<Array<ResolversTypes['Subscription']>, ParentType, ContextType, RequireFields<QueryGetSubscriptionsArgs, 'userProfileId'>>;
+  users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
 };
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
@@ -200,7 +195,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   emailAddress?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   isEmailAddressVerified?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  profile?: Resolver<Maybe<ResolversTypes['UserProfile']>, ParentType, ContextType>;
+  profile?: Resolver<ResolversTypes['UserProfile'], ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -208,7 +203,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 export type UserProfileResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserProfile'] = ResolversParentTypes['UserProfile']> = {
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  subscriptions?: Resolver<Array<Maybe<ResolversTypes['Subscription']>>, ParentType, ContextType>;
+  subscriptions?: Resolver<Array<ResolversTypes['Subscription']>, ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

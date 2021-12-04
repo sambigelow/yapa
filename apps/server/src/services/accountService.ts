@@ -1,21 +1,17 @@
 import * as bcrypt from 'bcryptjs'
-import type { PrismaClient } from '@prisma/client'
+
 import type { User } from '../generatedTypes'
+import type { AuthCredentials } from '../types/accountTypes'
+import { prisma } from '../prismaClient'
 
 const { genSalt, hash } = bcrypt
 
-/**
- *
- * @param {PrismaClient} prisma
- * @param {string} emailAddress
- * @param {string} password The plaintext password
- */
-export async function registerUser(
-	prisma: PrismaClient,
-	emailAddress: string,
-	password: string
-): Promise<User> {
-	const salt = await genSalt(16)
+export async function createUser({
+	emailAddress,
+	password
+}: AuthCredentials): Promise<User> {
+	// TODO: Error Handling
+	const salt = await genSalt(15)
 	const hashedPassword = await hash(password, salt)
 
 	const user = await prisma.user.create({
@@ -32,9 +28,9 @@ export async function registerUser(
 	})
 
 	return {
-		emailAddress: user.emailAddress,
-		isEmailAddressVerified: false,
 		id: user.id,
+		emailAddress: user.emailAddress,
+		isEmailAddressVerified: user.isEmailAddressVerified,
 		createdAt: user.createdAt.toString(),
 		profile: {
 			id: userProfile.id,

@@ -1,40 +1,41 @@
 import Fastify from 'fastify'
-import type { FastifyRequest, FastifyReply } from 'fastify'
 import mercurius from 'mercurius'
 import { getGraphQLSchema } from './getGraphQLSchema'
-import { PrismaClient } from '@prisma/client'
+import mercuriusAuth from 'mercurius-auth'
+import fastifyCookie from 'fastify-cookie'
+import * as dotenv from 'dotenv'
 
-const address = 3000
+dotenv.config()
+
 const fastify = Fastify()
-const prisma = new PrismaClient()
-
-const buildContext = async (_req: FastifyRequest, _reply: FastifyReply) => {
-	return {
-		prisma
-	}
-}
-
-type PromiseType<T> = T extends PromiseLike<infer U> ? U : T
-
-declare module 'mercurius' {
-	interface MercuriusContext
-		extends PromiseType<ReturnType<typeof buildContext>> {}
-}
 
 async function start() {
 	const schema = await getGraphQLSchema()
 
+	fastify.register(fastifyCookie, {
+		secret: process.env['JWT_SECRET'] as string
+	})
+
 	fastify.register(mercurius, {
 		schema,
-		graphiql: true,
-		context: (_request, _reply) => {
-			return { prisma }
-		}
+		graphiql: true
+	})
+
+	fastify.register(mercuriusAuth, {
+		authContext(_ctx) {
+			return {
+				identity: 'foo'
+			}
+		},
+		async applyPolicy(_authDirectiveAST, _parent, _args, _context, _info) {
+			return true
+		},
+		authDirective: 'auth'
 	})
 
 	try {
-		await fastify.listen(address, '0.0.0.0')
-		console.log(`Server listening at ${address}`)
+		await fastify.listen(process.env['PORT'] as string, '0.0.0.0')
+		console.log(`Server listening at ${process.env['PORT']}`)
 	} catch (e: unknown) {
 		// TODO: properly type the error
 		console.error(e)
